@@ -8,7 +8,7 @@ namespace XsmService.Utils
 {
     public class ConsoleProgressBar : IFormattable
     {
-        public static ConsoleProgressBar DefaultBar = new ConsoleProgressBar();
+        //public static ConsoleProgressBar DefaultBar = new ConsoleProgressBar();
 
         private float prc;
         private string z;
@@ -16,6 +16,12 @@ namespace XsmService.Utils
         public ConsoleProgressBar(char a = '#')
         {
             z = a.ToString();
+        }
+
+        public ConsoleProgressBar(int p,char a = '#')
+        {
+            z = a.ToString();
+            SetPrcInt(p);
         }
 
         public ConsoleProgressBar SetPrcInt(int p) // проценты 0-100

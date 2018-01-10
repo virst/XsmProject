@@ -12,5 +12,10 @@ namespace XsmController
         public Commands command;
         public int p;
         public string v;
+
+        public override string ToString()
+        {
+            return string.Format("{0}|{1}-{2}", command, p, v);
+        }
     }
 }

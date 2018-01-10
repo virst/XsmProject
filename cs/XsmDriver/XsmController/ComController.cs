@@ -12,18 +12,22 @@ namespace XsmController
         SerialPort com;
         static Dictionary<Commands, string> commands = new Dictionary<Commands, string>();
 
-        public event ControllerReceiveHandler CommandReceived;
+        public event ControllerReceiveHandler CommandReceived = null;
 
         static ComController()
         {
             commands.Add(Commands.Led_string, "STR");
             commands.Add(Commands.led_color, "RGB");
+            commands.Add(Commands.blink, "BLK");
+            commands.Add(Commands.click, "CLK");
+            commands.Add(Commands.double_click, "DBC");
         }
 
         public ComController(string port, int rate = 9600)
         {
             com = new SerialPort(port, rate);
             com.Encoding = Encoding.GetEncoding(1251);
+            com.RtsEnable = true;
             com.DataReceived += Com_DataReceived;
         }
 
@@ -34,6 +38,7 @@ namespace XsmController
             c.command = StringToEnum(s.Substring(0, 3));
             c.p = Convert.ToInt32(s.Substring(3, 2));
             c.v = s.Substring(5);
+            CommandReceived?.Invoke(this, c);
         }
 
         public void SendCommand(Commands command, int p, string v)

@@ -32,29 +32,30 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.btPortUpd = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btStringSend = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numericUpDownL = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownR = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownC = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btOpen = new System.Windows.Forms.Button();
-            this.numericUpDownC = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownR = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownL = new System.Windows.Forms.NumericUpDown();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.listBox2 = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownC)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownL)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownC)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -88,6 +89,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.listBox2);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.trackBar1);
             this.panel1.Controls.Add(this.groupBox3);
@@ -97,6 +99,45 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(625, 338);
             this.panel1.TabIndex = 3;
+            // 
+            // panel2
+            // 
+            this.panel2.Location = new System.Drawing.Point(212, 22);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(65, 43);
+            this.panel2.TabIndex = 4;
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(283, 3);
+            this.trackBar1.Maximum = 100;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.Size = new System.Drawing.Size(45, 258);
+            this.trackBar1.TabIndex = 3;
+            this.trackBar1.TickFrequency = 10;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.flowLayoutPanel1);
+            this.groupBox3.Location = new System.Drawing.Point(6, 267);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(605, 68);
+            this.groupBox3.TabIndex = 2;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Leds";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(5);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(599, 49);
+            this.flowLayoutPanel1.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -137,6 +178,30 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Настройка";
             // 
+            // numericUpDownL
+            // 
+            this.numericUpDownL.Location = new System.Drawing.Point(142, 19);
+            this.numericUpDownL.Name = "numericUpDownL";
+            this.numericUpDownL.Size = new System.Drawing.Size(31, 20);
+            this.numericUpDownL.TabIndex = 7;
+            this.numericUpDownL.ValueChanged += new System.EventHandler(this.numericUpDownL_ValueChanged);
+            // 
+            // numericUpDownR
+            // 
+            this.numericUpDownR.Location = new System.Drawing.Point(84, 19);
+            this.numericUpDownR.Name = "numericUpDownR";
+            this.numericUpDownR.Size = new System.Drawing.Size(31, 20);
+            this.numericUpDownR.TabIndex = 6;
+            this.numericUpDownR.ValueChanged += new System.EventHandler(this.numericUpDownR_ValueChanged);
+            // 
+            // numericUpDownC
+            // 
+            this.numericUpDownC.Location = new System.Drawing.Point(26, 19);
+            this.numericUpDownC.Name = "numericUpDownC";
+            this.numericUpDownC.Size = new System.Drawing.Size(31, 20);
+            this.numericUpDownC.TabIndex = 5;
+            this.numericUpDownC.ValueChanged += new System.EventHandler(this.numericUpDownC_ValueChanged);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -175,68 +240,15 @@
             this.btOpen.UseVisualStyleBackColor = true;
             this.btOpen.Click += new System.EventHandler(this.btOpen_Click);
             // 
-            // numericUpDownC
+            // listBox2
             // 
-            this.numericUpDownC.Location = new System.Drawing.Point(26, 19);
-            this.numericUpDownC.Name = "numericUpDownC";
-            this.numericUpDownC.Size = new System.Drawing.Size(31, 20);
-            this.numericUpDownC.TabIndex = 5;
-            this.numericUpDownC.ValueChanged += new System.EventHandler(this.numericUpDownC_ValueChanged);
-            // 
-            // numericUpDownR
-            // 
-            this.numericUpDownR.Location = new System.Drawing.Point(84, 19);
-            this.numericUpDownR.Name = "numericUpDownR";
-            this.numericUpDownR.Size = new System.Drawing.Size(31, 20);
-            this.numericUpDownR.TabIndex = 6;
-            this.numericUpDownR.ValueChanged += new System.EventHandler(this.numericUpDownR_ValueChanged);
-            // 
-            // numericUpDownL
-            // 
-            this.numericUpDownL.Location = new System.Drawing.Point(142, 19);
-            this.numericUpDownL.Name = "numericUpDownL";
-            this.numericUpDownL.Size = new System.Drawing.Size(31, 20);
-            this.numericUpDownL.TabIndex = 7;
-            this.numericUpDownL.ValueChanged += new System.EventHandler(this.numericUpDownL_ValueChanged);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.listBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.flowLayoutPanel1);
-            this.groupBox3.Location = new System.Drawing.Point(6, 267);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(605, 68);
-            this.groupBox3.TabIndex = 2;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Leds";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(5);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(599, 49);
-            this.flowLayoutPanel1.TabIndex = 0;
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(283, 3);
-            this.trackBar1.Maximum = 100;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.Size = new System.Drawing.Size(45, 258);
-            this.trackBar1.TabIndex = 3;
-            this.trackBar1.TickFrequency = 10;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
-            // 
-            // panel2
-            // 
-            this.panel2.Location = new System.Drawing.Point(212, 22);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(65, 43);
-            this.panel2.TabIndex = 4;
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Location = new System.Drawing.Point(349, 15);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(259, 238);
+            this.listBox2.TabIndex = 5;
             // 
             // Form1
             // 
@@ -253,14 +265,14 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownC)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownL)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownC)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -287,6 +299,7 @@
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.ListBox listBox2;
     }
 }
 

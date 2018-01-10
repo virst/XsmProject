@@ -7,6 +7,6 @@ namespace XsmController
 {
     public enum Commands
     {
-        Led_string, led_color
+        Led_string, led_color, blink , click, double_click
     }
 }

@@ -4,3 +4,4 @@
 3-PROCET CPU
 4-PROCENT RAM
 5-RAM PRC
+6-DateTime::Now

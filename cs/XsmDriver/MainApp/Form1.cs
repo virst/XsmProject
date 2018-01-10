@@ -42,6 +42,12 @@ namespace MainApp
             panel1.Enabled = true;
             if(listBox1.SelectedIndex >=0)
             cont = new ComController(listBox1.SelectedItem.ToString());
+            cont.CommandReceived += Cont_CommandReceived;
+        }
+
+        private void Cont_CommandReceived(object o, CommandInfo c)
+        {
+            listBox2.Items.Add(c);
         }
 
         private void label4_Click(object sender, EventArgs e)
