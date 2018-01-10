@@ -62,8 +62,8 @@ namespace XsmService
                     lb.Left = label1.Left;
                     lb.Top = label1.Top + (label1.Height + 20) * (i + 1);
                     lb.Text = @"123";
-                    lb.Font = new Font(pfc.Families[0], 10, FontStyle.Regular);
-                    lb.ForeColor = Color.Blue;
+                   // lb.Font = new Font(pfc.Families[0], 10, FontStyle.Regular);
+                   // lb.ForeColor = Color.Blue;
                     lb.Parent = this;
 
                     labels.Add(lb);
@@ -96,6 +96,11 @@ namespace XsmService
 
                 ShowRow(i, s);
             }
+        }
+
+        static int Incr(int n, int i, int m)
+        {
+            return (n + i + m) % m;
         }
     }
 }

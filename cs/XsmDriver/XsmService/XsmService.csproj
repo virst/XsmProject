@@ -45,10 +45,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="ViSysMon">
-      <HintPath>..\..\..\..\..\..\..\..\tmp\ViSysMon.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">
@@ -92,10 +88,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ViSysMon\ViSysMon.csproj">
+      <Project>{760fd8cd-6e7f-46a6-968b-663223cf33a5}</Project>
+      <Name>ViSysMon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XsmController\XsmController.csproj">
       <Project>{9e94152b-8057-469f-8557-70c9d6423da5}</Project>
       <Name>XsmController</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TextFile1.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
