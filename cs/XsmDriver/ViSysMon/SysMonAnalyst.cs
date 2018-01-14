@@ -44,7 +44,7 @@ namespace ViSysMon
 
             if (noMail)
             {
-                ret.Messages = new SysMonInfo.MessageInfo[0];
+                ret.Messages = null;
                 return ret;
             }
 
@@ -73,7 +73,7 @@ namespace ViSysMon
                 }
             }
             else
-                ret.Messages = new SysMonInfo.MessageInfo[0];
+                ret.Messages = null;
 
             #endregion
 

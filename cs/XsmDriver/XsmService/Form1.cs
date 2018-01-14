@@ -7,10 +7,12 @@ using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using ViSysMon;
 using XsmController;
 using XsmService.Utils;
+using static XsmService.Utils.MessageInfoAdapter;
 
 
 namespace XsmService
@@ -23,7 +25,10 @@ namespace XsmService
         List<Label> labels = new List<Label>();
         private int currenpPage = 0;
         private SysMonAnalyst sa = new SysMonAnalyst();
+        MessageInfoAdapter ma = new MessageInfoAdapter();
         ComController contr;
+
+        Thread ct = Thread.CurrentThread;
 
         public Form1()
         {
@@ -47,13 +52,14 @@ namespace XsmService
                     port = "COM8",
                     cols = 20,
                     rows = 4,
-                    leds = 2,
-                    Tick = 500,
+                    leds = 4,
+                    Tick = 1500,
                     diplays = new List<string[]>
                         {
-                            new[] {"   *INFO-1*", "CPU:{0:D3}%{3:10}", "RAM USED {1:D4} MB", "{6}"},
-                            new[] {"   *INFO-2*", "CPU:{0:D3}%{3:10}", "RAM:{5:D3}%{4:10}", "RAM USE {1:D4}/{2:D4}MB"},
-                            new[] {"   *INFO-3*", "CPU:{0:D3}% RAM {1:D4}MB", "CPU{3:15}", "RAM{4:15}"}
+                         //   new[] {"   *INFO-1*", "CPU:{0:D3}%{3:10}", "RAM USED {1:D4} MB", "  {6:dd.MM.yyyy HH:mm}"},
+                         //   new[] {"   *INFO-2*", "CPU:{0:D3}%{3:10}", "RAM:{5:D3}%{4:10}", "RAM USE {1:D4}/{2:D4}MB"},
+                         //   new[] {"   *INFO-3*", "CPU:{0:D3}% RAM {1:D4}MB", "CPU{3:15}", "RAM{4:15}"},
+                            new[] {"   *MAIL_INFO*", "Message {8:D3}/{7:D3}", "{9:SenderName}", "{9:Subject}" }
                         }
                 };
 
@@ -92,15 +98,30 @@ namespace XsmService
                         button2_Click(null, null); break;
                     case 5:
                         button3_Click(null, null); break;
+                    case 6:
+                        button5_Click(null, null); break;
+                    case 7:
+                        button4_Click(null, null); break;
                 }
             }
         }
 
         void ShowRow(int n, string s)
         {
-            // labels[n].Text = s.Normalize(config.cols);
-            contr.SendCommand(Commands.Led_string, n, s);
-
+            label1.ForeColor = Color.Blue;
+            s = s.Normalize(config.cols);
+            if (ct == Thread.CurrentThread)
+                labels[n].Text = s;
+            try
+            {
+                contr.SendCommand(Commands.Led_string, n, s);
+                label1.Text = "OK";
+            }
+            catch(IOException ex)
+            {
+                label1.ForeColor = Color.Red;
+                label1.Text = "IOException";
+            }
         }
 
         ConsoleProgressBar prc1 = new ConsoleProgressBar(), prc_2 = new ConsoleProgressBar();
@@ -112,22 +133,24 @@ namespace XsmService
             int ram_a = (int)info.AvailableMemoryMB;
             int ram_t = (int)info.TotalMemoryMB;
             int ram_u = ram_t - ram_a;
-            int ram_p = ram_u*100 / ram_t;
+            int ram_p = ram_u * 100 / ram_t;
+            ma.mails = Demo.GetDemoMails();
 
             for (int i = 0; i < config.diplays[currenpPage].Length; i++)
             {
                 string s = string.Format(config.diplays[currenpPage][i], cpu_p, ram_u, ram_t,
                     prc1.SetPrcInt(cpu_p),
-                    prc_2.SetPrcInt(ram_p), ram_p,DateTime.Now);
+                    prc_2.SetPrcInt(ram_p), ram_p, DateTime.Now,
+                    ma.MailsCount,ma.CurrenIndex,ma);
 
                 ShowRow(i, s);
             }
-        }
 
-        static int Incr(int n, int i, int m)
-        {
-            return (n + i + m) % m;
-        }
+            contr.SendCommand(Commands.led_color, 0, Color.Red);
+            contr.SendCommand(Commands.led_color, 1, Color.Green);
+            contr.SendCommand(Commands.led_color, 2, Color.Yellow);
+            contr.SendCommand(Commands.led_color, 3, Color.Blue);
+        }        
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -139,6 +162,16 @@ namespace XsmService
         {
             currenpPage = Incr(currenpPage, -1, config.diplays.Count);
             timer1_Tick(sender, null);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ma.CurrenIndex++;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            ma.CurrenIndex--;
         }
 
         private void button1_Click(object sender, EventArgs e)

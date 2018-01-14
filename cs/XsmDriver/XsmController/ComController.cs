@@ -41,23 +41,29 @@ namespace XsmController
             CommandReceived?.Invoke(this, c);
         }
 
-        public void SendCommand(Commands command, int p, string v)
+        public bool SendCommand(Commands command, int p, string v)
         {
             string s = EnumToString(command) + p.ToString("D2") + v;
-            if (!com.IsOpen)
-                com.Open();
-            com.WriteLine(s);
+            try
+            {
+                if (!com.IsOpen)
+                    com.Open();
+                com.WriteLine(s);
+                return true;
+            }
+            catch (Exception ex)
+            { return false; }
         }
 
-        public void SendCommand(Commands command, int p, int v)
+        public bool SendCommand(Commands command, int p, int v)
         {
-            SendCommand(command, p, v.ToString());
+            return SendCommand(command, p, v.ToString());
         }
 
-        public void SendCommand(Commands command, int p, Color v)
+        public bool SendCommand(Commands command, int p, Color v)
         {
             int d = v.R * (256 * 256) + v.G * 256 + v.B;
-            SendCommand(command, p, d);
+            return SendCommand(command, p, d);
         }
 
         private static string EnumToString(Commands c)

@@ -5,3 +5,6 @@
 4-PROCENT RAM
 5-RAM PRC
 6-DateTime::Now
+7-MailsCount
+8-CurrenIndex
+9-MessageInfo
