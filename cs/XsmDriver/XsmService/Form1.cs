@@ -17,6 +17,8 @@ using static XsmService.Utils.MessageInfoAdapter;
 
 namespace XsmService
 {
+    
+
     public partial class Form1 : Form
     {
         private const string confFile = "XsmConfig.json";
