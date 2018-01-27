@@ -6,8 +6,10 @@ using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ViSysMon;
 
 namespace XsmTiny
 {
@@ -15,6 +17,7 @@ namespace XsmTiny
     {
         private SerialPort sp;
         delegate void LizyCallback();
+        private SysMonAnalyst sa = new SysMonAnalyst();
 
         public Form1()
         {
@@ -24,6 +27,7 @@ namespace XsmTiny
             sp.RtsEnable = true;
             sp.DataReceived += Sp_DataReceived;
             timer1.Interval = Convert.ToInt32(Program.AppParams["interval"]);
+            this.Text = "Pott - " + sp.PortName;
         }
 
         private string tmp_data = "";
@@ -52,18 +56,32 @@ namespace XsmTiny
             _bb[0] = n;
             _bb[1] = (byte)((val / 100) % 100);
             _bb[2] = (byte)(val % 100);
+            if (!sp.IsOpen)
+                sp.Open();
             sp.Write(_bb, 0, 3);
         }
 
         void SendVal(byte n, string val)
         {
             _bb[0] = n;
+            if (!sp.IsOpen)
+                sp.Open();
             sp.Write(_bb, 0, 3);
             sp.WriteLine(val);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            var info = sa.GetSysStatus(true);
+            int cpu_p = (int)info.UseCpu;
+            int ram_a = (int)info.AvailableMemoryMB;
+            int ram_t = (int)info.TotalMemoryMB;
+            int ram_u = ram_t - ram_a;
+            int mlc = 5;
+
+            SendVal(0, mlc); Thread.Sleep(100);
+            SendVal(1, cpu_p); Thread.Sleep(100);
+            SendVal(2, ram_u);
 
         }
 
