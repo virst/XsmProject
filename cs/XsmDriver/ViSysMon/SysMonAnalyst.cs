@@ -21,6 +21,8 @@ namespace ViSysMon
         private readonly PerformanceCounter _diskWrite = new PerformanceCounter("PhysicalDisk", "Disk Write Bytes/sec", "_Total");
         private readonly ulong _totalPhysicalMemory = new ComputerInfo().TotalPhysicalMemory;
 
+        public static readonly SysMonAnalyst SysStatusInfo = new SysMonAnalyst();
+
         public virtual SysMonInfo GetSysStatus()
         {
             return GetSysStatus(true);
@@ -50,30 +52,38 @@ namespace ViSysMon
 
             #region Outlook
 
-            var application = GetApplicationObject();
-            if (application != null)
+            try
             {
-
-                Outlook.MAPIFolder inBox = application.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderInbox);
-                Outlook.Items items = (Outlook.Items)inBox.Items;
-                items = items.Restrict("[UnRead] = true");
-                ret.Messages = new SysMonInfo.MessageInfo[items.Count];
-                //for(int i=0;i< items.Count;i++) 
-                int i = 0;
-                foreach (Outlook.MailItem eMails in items)
+                var application = GetApplicationObject();
+                if (application != null)
                 {
 
-                    ret.Messages[i] = new SysMonInfo.MessageInfo
+                    Outlook.MAPIFolder inBox =
+                        application.Session.GetDefaultFolder(Outlook.OlDefaultFolders.olFolderInbox);
+                    Outlook.Items items = (Outlook.Items) inBox.Items;
+                    items = items.Restrict("[UnRead] = true");
+                    ret.Messages = new SysMonInfo.MessageInfo[items.Count];
+                    //for(int i=0;i< items.Count;i++) 
+                    int i = 0;
+                    foreach (Outlook.MailItem eMails in items)
                     {
-                        SenderName = eMails.SenderName,
-                        Subject = eMails.Subject
-                    };
-                    i++;
 
+                        ret.Messages[i] = new SysMonInfo.MessageInfo
+                        {
+                            SenderName = eMails.SenderName,
+                            Subject = eMails.Subject
+                        };
+                        i++;
+
+                    }
                 }
+                else
+                    ret.Messages = null;
             }
-            else
+            catch (Exception ex)
+            {
                 ret.Messages = null;
+            }
 
             #endregion
 

@@ -23,10 +23,16 @@ namespace XsmTiny
         {
             InitializeComponent();
 
-            sp = new SerialPort(Program.AppParams["port"]);
+            sp = new SerialPort(Program.AppParams["port"],9600);
             sp.RtsEnable = true;
+            sp.ReadTimeout = 1000;
+            sp.Parity = Parity.None;
+            sp.DataBits = 8;
+            sp.Handshake = Handshake.None;
+            sp.Open();
             sp.DataReceived += Sp_DataReceived;
             timer1.Interval = Convert.ToInt32(Program.AppParams["interval"]);
+            timer1.Enabled = true;
             this.Text = "Pott - " + sp.PortName;
         }
 
@@ -77,7 +83,7 @@ namespace XsmTiny
             int ram_a = (int)info.AvailableMemoryMB;
             int ram_t = (int)info.TotalMemoryMB;
             int ram_u = ram_t - ram_a;
-            int mlc = 5;
+            int mlc = info.Messages?.Length??0;
 
             SendVal(0, mlc); Thread.Sleep(100);
             SendVal(1, cpu_p); Thread.Sleep(100);
